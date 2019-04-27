@@ -1,0 +1,2 @@
+def tan():
+    pass
