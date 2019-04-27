@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="/static/js/record_score.js"></script>
+
+</head>
+<body>
+<div class="alert alert-info alert-dismissible" role="alert" style="text-align: center" style="font-size: 26px;">
+    <strong>{{ cls_record.class_obj }}</strong> day{{ cls_record.day_num }}天的成绩
+</div>
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" style="margin-top: 20px;">
+            <form action="" method="post">
+            {%csrf_token%}
+                <table class="table-hover table  table-striped">
+                    <thead>
+                    <tr class="warning">
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>出勤</th>
+                        <th>成绩</th>
+                        <th>批语</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for studentstudyrecord in studentstudyrecord_list %}
+                        <tr class="success">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ studentstudyrecord.student }}</td>
+                            <td>{{ studentstudyrecord.get_record_display }}</td>
+                            <td>
+                                <select name="score_{{ studentstudyrecord.pk }}" id="" class="score"
+                                        sid="{{ studentstudyrecord.pk }}">
+                                    {% for item in score_choice %}
+                                        {% if studentstudyrecord.score == item.0 %}
+                                            <option selected value="{{ item.0 }}">{{ item.1 }}</option>
+                                        {% endif %}
+                                        <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <textarea name="homework_note_{{ studentstudyrecord.pk }}" class="note" id="" cols="30" rows="1"
+                                          sid="{{ studentstudyrecord.pk }}">{{ studentstudyrecord.homework_note|default:"" }}</textarea>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+             <button  class="btn btn-info " style="margin-left:300px;margin-top: 30px;">保存</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

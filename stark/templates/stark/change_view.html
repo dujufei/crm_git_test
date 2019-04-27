@@ -1,0 +1,14 @@
+{% extends "stark/base.html" %}
+{% block css %}
+     <link rel="stylesheet" href="/static/css/form.css">
+{% endblock css %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-8 ">
+            {% include 'stark/form.html' %}
+        </div>
+    </div>
+</div>
+<script src="/static/js/add_or_edit.js"></script>
+{% endblock content %}
